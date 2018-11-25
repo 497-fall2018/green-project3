@@ -1,12 +1,26 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { createBottomTabNavigator,createAppContainer } from 'react-navigation';
+import NameTag from './app/screens/NameTag.js';
+import Friends from './app/screens/Friends.js';
+import Profile from './app/screens/Profile.js';
+
+
+const MainStack = createBottomTabNavigator(
+  {
+    NameTag:{ screen: NameTag },
+    Friends:{ screen: Friends },
+    Profile:{ screen: Profile }
+  }
+)
+const MainStack1 = createAppContainer(MainStack);
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+
+        <MainStack1/>
+
     );
   }
 }

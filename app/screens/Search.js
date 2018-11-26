@@ -1,21 +1,20 @@
 import React from 'react';
 import { FlatList, StyleSheet,Text, View, Image } from 'react-native';
 import CodeInput from 'react-native-confirmation-code-input';
+import AddContact from '../components/AddContact.js';
 
-class NameTag extends React.Component{
+class Search extends React.Component{
 
     constructor(props){
       super(props);
       this.state={
-        input: true,
-        code: '0000'
+        input: true
       }
     }
 
-    onFinishCheckingCode(c){
+    onFinishCheckingCode(isValid, code){
       this.setState({
-        input: false,
-        code: c.toString()
+        input: false
       })  
     }
 
@@ -29,21 +28,21 @@ class NameTag extends React.Component{
     {
       if (this.state.input){
         return(
-          <View>
+          <View  style={{backgroundColor: '#CC99FF'}}>
             <Text style={{fontWeight: 'bold', marginTop:200, textAlign: 'center', fontSize: 32}}>
-              Enter 4-digit Code to share your profile
+              Enter 4-digit Code to search for contacts
             </Text>
             <CodeInput
               ref="codeInputRef"
               keyboardType="numeric"
-              activeColor='rgba(49, 180, 4, 1)'
-              inactiveColor='rgba(49, 180, 4, 1.3)'
+              activeColor='rgba(0, 0, 0, 1)'
+              inactiveColor='rgba(0, 0, 0, 1.3)'
               codeLength={4}
-              className='border-circle'
+              className='border-b'
               autoFocus={false}
-              containerStyle={{ marginTop: 100 }}
+              containerStyle={{ marginTop: 150 }}
               codeInputStyle={{ fontWeight: '800' }}
-              onFulfill={(code) => this.onFinishCheckingCode(code)}
+              onFulfill={(isValid, code) => this.onFinishCheckingCode(isValid, code)}
             />
           </View>
         )
@@ -51,16 +50,12 @@ class NameTag extends React.Component{
       else{
         return(
           <View>
-            <Text style={{fontWeight: 'bold', marginTop:200, textAlign: 'center', fontSize: 32}}>
-              You are sharing your profile at {"\n\n\n\n"}
-              {this.state.code}
-            </Text>
+            <AddContact goBack={()=>this.closeContact()}/>
           </View>
         )
       }
     }
-    
 
 }
 
-export default NameTag;
+export default Search;

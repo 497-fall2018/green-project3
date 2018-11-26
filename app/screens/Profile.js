@@ -1,6 +1,6 @@
 import React from 'react';
-import { FlatList, StyleSheet,Text, View, Image, Card, Button, Icon, TextInput } from 'react-native';
-import { CardViewWithIcon } from "react-native-simple-card-view";
+import { FlatList, StyleSheet,Text, View, Image, Alert} from 'react-native';
+import { Card, ListItem, Button, Icon, Input } from 'react-native-elements'
 
 class Profile extends React.Component{
 
@@ -11,18 +11,48 @@ class Profile extends React.Component{
         }
     }
 
+    onPressButton(){
+        Alert.alert(
+         'You have updated your profile.'
+        )
+    }
+
     render()
     {
         return(
-            <View style={{flex:1}}>
-                <View style={{height:70,paddingTop:30, backgroundColor:'white', borderColor:'lightgrey',borderBottomWidth:0.5,justifyContent:'center',alignItems:'center'}}>
-                 <Text>Profile</Text>
-                 <TextInput
-                    style={{height: 40, marginTop: 200, borderColor: 'gray', borderWidth: 1}}
-                    onChangeText={(text) => this.setState({text})}
-                    value={this.state.text}
-                  />
-                </View>
+            <View>
+                    <Card
+                      containerStyle={{marginTop: 200}}
+                      image={require('../../assets/profilePhoto.jpg')}
+                      imageProps={{marginTop: 20, resizeMode: 'contain'}}>
+                      <ListItem
+                        key={0}
+                        title={"Name"}
+                        textInput={true}
+                        textInputValue={'Wei Hang'}
+                        hideChevron
+                      />
+                      <ListItem
+                        key={1}
+                        title={"Phone"}
+                        textInput={true}
+                        hideChevron
+                      />
+                      <ListItem
+                        key={2}
+                        title={"E-mail"}
+                        textInput={true}
+                        textInputValue={'wehang2020@u.northwestern.edu'}
+                        hideChevron
+                      />
+                      <Button
+                        icon={<Icon name='code' color='#ffffff' />}
+                        onPress={()=>this.onPressButton()}
+                        backgroundColor='#03A9F4'
+                        buttonStyle={{marginTop: 10, borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+                        title='Save' />
+                    </Card>
+
             </View>
         )
     }

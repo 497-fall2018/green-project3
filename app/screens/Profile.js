@@ -11,6 +11,7 @@ class Profile extends React.Component{
         }
     }
 
+
     onPressButton(){
         Alert.alert(
          'You have updated your profile.'

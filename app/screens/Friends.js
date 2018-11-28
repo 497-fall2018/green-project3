@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button, FlatList, StyleSheet,Text, View, Image, TouchableHighlight } from 'react-native'
 import firebase from '../../config/config.js';
+import CodeInput from 'react-native-confirmation-code-input';
+import AddContact from '../components/AddContact.js';
 
 class Friends extends React.Component{
         
@@ -9,9 +11,24 @@ class Friends extends React.Component{
         this.state={
             Email:null,
             Phone:null,
-            UserName:null
+            UserName:null,
+            input:true
         }
     }
+
+    onFinishCheckingCode(code){
+        this.setState({
+          input: false
+        })  
+        console.log(code);
+        this.sendRequest((code.toString()))
+      }
+  
+      closeContact(){
+        this.setState({
+          input: true
+        }) 
+     }
 
     setValue(Email,Phone,UserName){
         console.log('hhhhhhhhhhhhhh')
@@ -51,17 +68,45 @@ class Friends extends React.Component{
 
     render()
     {
-      return(
-        <View>
-        <View style={{ flex: 1 }}>
-            <View style={{ height: 70, paddingTop: 30, backgroundColor: 'white', borderColor: 'lightgrey', borderBottomWidth: 0.5, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>NameTag</Text>
-            </View>
-        </View>
-        <View style={{ height: 350, paddingTop: 300,  justifyContent: 'center', alignItems: 'center' }} >
-        <Text>HHHHHH</Text>
+      if (this.state.input){
+        return(
+          <View>
+            <Text style={{fontWeight: 'bold', marginTop:200, textAlign: 'center', fontSize: 32}}>
+              Enter 4-digit Code  
+            </Text>
+            <CodeInput
+              ref="codeInputRef"
+              keyboardType="numeric"
+              activeColor='rgba(49, 180, 4, 1)'
+              inactiveColor='rgba(49, 180, 4, 1.3)'
+              codeLength={4}
+              className='border-circle'
+              autoFocus={false}
+              containerStyle={{ marginTop: 100 }}
+              codeInputStyle={{ fontWeight: '800' }}
+              onFulfill={(code) => this.onFinishCheckingCode(code)}
+            />
+          </View>
+        )
+      }
+      else{
 
-        <Button
+        return(
+          <View>
+             <AddContact 
+             Email={this.state.Email} 
+             Phone={this.state.Phone}
+             UserName={this.state.UserName}
+             goBack={()=>this.closeContact()}/> 
+      </View>
+        )
+    }
+}
+
+}
+export default Friends;
+
+/* <Button
           onPress = { ()=> this.sendRequest('1234')}
           title='button' />
 
@@ -70,15 +115,4 @@ class Friends extends React.Component{
         <Text>Email: {this.state.Email}</Text>
         <Text>Phone: {this.state.Phone}</Text>
         <Text>UserName: {this.state.UserName}</Text>
-        </View>
-        )}
-          
-
-        </View>
-        </View>
-      )  
-    }
-
-}
-
-export default Friends;
+        </View> */

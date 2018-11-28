@@ -4,7 +4,7 @@ import firebase from '../../config/config.js';
 import CodeInput from 'react-native-confirmation-code-input';
 import AddContact from '../components/AddContact.js';
 
-class Friends extends React.Component{
+class Search extends React.Component{
         
     constructor(props) {
         super(props);
@@ -70,19 +70,19 @@ class Friends extends React.Component{
     {
       if (this.state.input){
         return(
-          <View>
+          <View  style={{backgroundColor: '#CC99FF'}}>
             <Text style={{fontWeight: 'bold', marginTop:200, textAlign: 'center', fontSize: 32}}>
-              Enter 4-digit Code  
+              Enter 4-digit Code to search for contacts
             </Text>
             <CodeInput
               ref="codeInputRef"
               keyboardType="numeric"
-              activeColor='rgba(49, 180, 4, 1)'
-              inactiveColor='rgba(49, 180, 4, 1.3)'
+              activeColor='rgba(0, 0, 0, 1)'
+              inactiveColor='rgba(0, 0, 0, 1.3)'
               codeLength={4}
-              className='border-circle'
+              className='border-b'
               autoFocus={false}
-              containerStyle={{ marginTop: 100 }}
+              containerStyle={{ marginTop: 150 }}
               codeInputStyle={{ fontWeight: '800' }}
               onFulfill={(code) => this.onFinishCheckingCode(code)}
             />
@@ -104,7 +104,7 @@ class Friends extends React.Component{
 }
 
 }
-export default Friends;
+export default Search;
 
 /* <Button
           onPress = { ()=> this.sendRequest('1234')}

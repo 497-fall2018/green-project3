@@ -19,6 +19,7 @@
     "react-native-contacts": "^2.2.4",
     "react-native-elements": "^0.19.1",
     "react-native-input-list": "^1.6.8",
+    "react-native-plus-button-box": "^1.1.0",
     "react-native-simple-card-view": "^0.3.0",
     "react-native-timer-countdown": "^2.0.3",
     "react-navigation": "^3.0.0"

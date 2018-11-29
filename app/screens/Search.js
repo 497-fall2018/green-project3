@@ -5,7 +5,7 @@ import CodeInput from 'react-native-confirmation-code-input';
 import AddContact from '../components/AddContact.js';
 
 class Search extends React.Component{
-        
+
     constructor(props) {
         super(props);
         this.state={
@@ -19,15 +19,15 @@ class Search extends React.Component{
     onFinishCheckingCode(code){
         this.setState({
           input: false
-        })  
+        })
         console.log(code);
         this.sendRequest((code.toString()))
       }
-  
+
       closeContact(){
         this.setState({
           input: true
-        }) 
+        })
      }
 
     setValue(Email,Phone,UserName){
@@ -93,11 +93,11 @@ class Search extends React.Component{
 
         return(
           <View>
-             <AddContact 
-             Email={this.state.Email} 
+             <AddContact
+             Email={this.state.Email}
              Phone={this.state.Phone}
              UserName={this.state.UserName}
-             goBack={()=>this.closeContact()}/> 
+             goBack={()=>this.closeContact()}/>
       </View>
         )
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet,Text, View, Image, Icon, TouchableOpacity, TextInput } from 'react-native';
-import { CheckBox, Badge, Button } from 'react-native-elements'
+import { CheckBox, Badge, Button, ListItem} from 'react-native-elements'
 import CodeInput from 'react-native-confirmation-code-input';
 import TimerCountdown from 'react-native-timer-countdown';
 
@@ -10,9 +10,10 @@ class Share extends React.Component{
       super(props);
       this.state={
         input: true,
-        inputCode:"",
+        code:"able",
         checked: true
       }
+      this.userList = []
       this.wordList = [
            "able","also","ants","area","army","atom","away","baby","back","ball",
            "band","bank","bare","bark","barn","base","bean","bear","beat","been","bell","belt","bend",
@@ -47,19 +48,18 @@ class Share extends React.Component{
            "well","went","were","west","wet","what","when","whom","wide","wife","wild","will","wind","wing","wire","wise","wish","with","wolf",
            "wood","wool","word","wore","work","yard","year","your","zero","zulu"
          ]
-      this.code = "0000",
       this.inputCode = (text) => {
       this.setState({ inputCode: text })
       }
     }
 
-    generateRandomNumber(min_value , max_value) {
+    generateRandomNumber(min , max) {
       let random_number = Math.random() * (max-min) + min;
       return Math.floor(random_number);
     }
 
-    randomElementInArray(array) {
-        return array[generateRandomNumber(0,array.length)];
+    generateCode() {
+        this.state.code = this.wordList[this.generateRandomNumber(0,this.wordList.length)];
     }
 
     onFinishCheckingCode(c){
@@ -82,12 +82,14 @@ class Share extends React.Component{
     }
 
     render() {
+      this.generateCode();
       return (
         <View style = {styles.container}>
           <Badge
             containerStyle={{ backgroundColor: 'violet'}}
-            value={this.wordList[0]}
+            value={this.state.code}
             textStyle={{ color: 'black' }}
+            onPress={() => {this.generateCode()}}
           />
         </View>
       );

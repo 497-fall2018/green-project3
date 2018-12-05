@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CodeInput from 'react-native-confirmation-code-input';
 import TimerCountdown from 'react-native-timer-countdown';
 
-class Share extends React.Component{
+class Home extends React.Component{
 
     constructor(props){
       super(props);
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
    }
 })
 
-export default Share;
+export default Home;

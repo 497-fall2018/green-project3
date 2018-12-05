@@ -4,16 +4,16 @@ import { CheckBox, Badge, Button, ListItem} from 'react-native-elements'
 import CodeInput from 'react-native-confirmation-code-input';
 import TimerCountdown from 'react-native-timer-countdown';
 
-class Share extends React.Component{
+class Group extends React.Component{
 
     constructor(props){
       super(props);
       this.state={
         input: true,
         code:"able",
-        checked: true
+        checked: true,
+        userList: [],
       }
-      this.userList = []
       this.wordList = [
            "able","also","ants","area","army","atom","away","baby","back","ball",
            "band","bank","bare","bark","barn","base","bean","bear","beat","been","bell","belt","bend",
@@ -48,9 +48,6 @@ class Share extends React.Component{
            "well","went","were","west","wet","what","when","whom","wide","wife","wild","will","wind","wing","wire","wise","wish","with","wolf",
            "wood","wool","word","wore","work","yard","year","your","zero","zulu"
          ]
-      this.inputCode = (text) => {
-      this.setState({ inputCode: text })
-      }
     }
 
     generateRandomNumber(min , max) {
@@ -80,6 +77,8 @@ class Share extends React.Component{
         alert('code: ' + c + ' worked ')
       }
     }
+
+    
 
     render() {
       this.generateCode();
@@ -111,4 +110,4 @@ const styles = StyleSheet.create({
    }
 })
 
-export default Share;
+export default Group;

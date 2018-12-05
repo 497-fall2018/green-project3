@@ -4,11 +4,15 @@ import { createBottomTabNavigator,createAppContainer } from 'react-navigation';
 import Share from './app/screens/Share.js';
 import Search from './app/screens/Search.js';
 import Profile from './app/screens/Profile.js';
+import HomeScreen from './app/screens/HomeScreen.js';
+import Group from './app/screens/Group.js';
+
 
 
 const MainStack = createBottomTabNavigator(
   {
-    Share:{ screen: Share },
+    Home:{ screen: HomeScreen},
+    Group:{ screen: Group },
     Search:{ screen: Search },
     Profile:{ screen: Profile }
   }

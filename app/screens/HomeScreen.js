@@ -1,6 +1,5 @@
 import React from 'react';
 import { FlatList, StyleSheet,Text, View, Image, Button, Icon, TouchableOpacity, TextInput } from 'react-native';
-import { CheckBox } from 'react-native-elements'
 import CodeInput from 'react-native-confirmation-code-input';
 import TimerCountdown from 'react-native-timer-countdown';
 
@@ -11,7 +10,6 @@ class Share extends React.Component{
       this.state={
         input: true,
         inputCode:"",
-        checked: true
       }
       this.wordList = [
            "able","also","ants","area","army","atom","away","baby","back","ball",
@@ -81,62 +79,46 @@ class Share extends React.Component{
       }
     }
 
-    render() {
-      return (
+    render()
+    {
+      return(
         <View style = {styles.container}>
-          <CheckBox style = {styles.checkbox}
-            title='#'
-            checked={this.state.checked}
-          />
+          <TextInput style = {styles.input}
+             underlineColorAndroid = "transparent"
+             placeholder = "code"
+             placeholderTextColor = "#9a73ef"
+             autoCapitalize = "none"
+             onChangeText = {this.inputCode}/>
 
-          <CheckBox style = {styles.checkbox}
-            title='email-id'
-            checked={this.state.checked}
-          />
-
-          <CheckBox style = {styles.checkbox}
-            title='LinkedIn'
-            checked={this.state.checked}
-          />
-
-          <CheckBox style = {styles.checkbox}
-            title='Facebook'
-            checked={this.state.checked}
-          />
-
-          <CheckBox style = {styles.checkbox}
-            title='email-id'
-            checked={this.state.checked}
-          />
-        </View>
-      );
+          <TouchableOpacity
+             style = {styles.submitButton}
+             onPress = {
+                () => this.verifyCode(this.state.inputCode)
+             }>
+             <Text style = {styles.submitButtonText}> Generate </Text>
+          </TouchableOpacity>
+       </View>
+      )
     }
 
 
 }
 
 const styles = StyleSheet.create({
-  container: {
-     paddingTop: 23
-  },
-  checkbox: {
-    margin: 100,
-    height: 100,
-    borderColor: '#7a42f4',
-    borderWidth: 1,
-    paddingTop: 100
+   container: {
+      paddingTop: 23
    },
-  input: {
-    margin: 15,
-    height: 40,
-    borderColor: '#7a42f4',
-    borderWidth: 1
+   input: {
+      margin: 15,
+      height: 40,
+      borderColor: '#7a42f4',
+      borderWidth: 1
    },
    submitButton: {
-    backgroundColor: '#7a42f4',
-    padding: 10,
-    margin: 15,
-    height: 40,
+      backgroundColor: '#7a42f4',
+      padding: 10,
+      margin: 15,
+      height: 40,
    },
    submitButtonText:{
       color: 'white'

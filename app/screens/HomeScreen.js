@@ -53,6 +53,7 @@ class Home extends React.Component{
         groupcode:groupcode,
         groupusers:[userid]
       })
+      this.props.navigation.navigate('Group')
     }
 
     joinGroup(groupcode){

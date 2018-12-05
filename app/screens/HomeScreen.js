@@ -14,9 +14,72 @@ class Home extends React.Component{
         emailCheck: true,
         linkedinCheck: true,
         facebookCheck: true,
-        startgroup:false,
+        startGroup:false,
         joinGroup:false,
+        userid:'testuser1',
+        groupcode:'',
+        groupusers:[]
       }
+    }
+
+    createGroup(userid){
+      //this should be the call to the db to return an empty groupcode
+      //for now, it is hardcoded as TEST
+      //for code in groupcodes:
+      //  if code.users.length == 0{
+      //    code.users.append(userid)
+      //    return code
+      //  }
+      var groupcode = 'TEST'
+      this.setState({
+        startGroup:true,
+        groupcode:groupcode,
+        groupusers:[userid]
+      })
+    }
+
+    joinGroup(groupcode){
+      // this should query the db's groups table to find the matching dictionary object
+      // it will return the list of user id's associated with the specific code
+      // var userids = []
+      // for code in groupcodes:
+      //   if code == groupcode:
+      //     userids += dict[code] (this is the list of userids)
+      // return userids;
+
+      var userids = ['testuser1','testuser2','testuser3','testuser4']
+      this.setState({
+        joinGroup:true,
+        groupcode:groupcode,
+        groupusers:userids
+      })
+    }
+
+    getUser(userid){
+      //this should query the users table of the db to return the stored information
+      // given a certain userid
+      // var userobj={
+      //       id:{userid},
+      //       name:'',
+      //       email:'',
+      //       phone:'',
+      //       address:'',
+      //       facebooklink:'',
+      //       linkedinlink:''
+      //      }
+      // for user in users:
+      //    if user.id == userid:
+      //      userobj = user
+      var userobj = {
+            id:userid,
+            name:'Test User',
+            email:'test@user.com',
+            phone:'555-555-1234',
+            address:'123 Test Ave, Evanston IL 60201',
+            facebooklink:'https://www.facebook.com/ryanmchenry2',
+            linkedinlink:'https://www.linkedin.com/in/ryanmchenry2'
+      }
+      return userobj
     }
 
 
@@ -62,7 +125,7 @@ class Home extends React.Component{
               borderRadius: 5
             }}
             containerStyle={{ marginTop: 20 }}
-            onPress={() => this.setState({startgroup: !this.state.startgroup})}
+            onPress={() => this.createGroup(this.state.userid)}
           >
             <Text style={styles.customButtonText}>START GROUP</Text>
           </TouchableOpacity>

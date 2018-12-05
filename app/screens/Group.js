@@ -12,7 +12,18 @@ class Group extends React.Component{
         input: true,
         code:"able",
         checked: true,
-        userList: [],
+        userList: [
+          {
+            name: 'Amy Farha',
+            avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+            subtitle: 'Vice President'
+          },
+          {
+            name: 'Chris Jackson',
+            avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+            subtitle: 'Vice Chairman'
+  },
+        ],
       }
       this.wordList = [
            "able","also","ants","area","army","atom","away","baby","back","ball",
@@ -78,7 +89,21 @@ class Group extends React.Component{
       }
     }
 
-    
+    addUser(user){
+      this.state.userList.push(user)
+    }
+
+    keyExtractor = (item, index) => index
+
+    renderItem = ({ item }) => (
+      <ListItem
+        title={item.name}
+        subtitle={item.subtitle}
+        leftAvatar={{ source: { uri: item.avatar_url } }}
+      />
+    )
+
+
 
     render() {
       this.generateCode();
@@ -89,6 +114,12 @@ class Group extends React.Component{
             value={this.state.code}
             textStyle={{ color: 'black' }}
             onPress={() => {this.generateCode()}}
+          />
+
+          <FlatList
+            keyExtractor={this.keyExtractor}
+            data={this.state.userList}
+            renderItem={this.renderItem}
           />
         </View>
       );

@@ -89,7 +89,7 @@ class Search extends Component{
         this.sendRequest((code.toString()))
       }
 
-      closeContact(){
+    closeContact(){
         this.setState({
           input: true
         })
@@ -201,14 +201,3 @@ class Search extends Component{
 }
 
 export default Search;
-
-/* <Button
-          onPress = { ()=> this.sendRequest('1234')}
-          title='button' />
-
-        {this.state.Email == null? (<View></View>) :(
-        <View>
-        <Text>Email: {this.state.Email}</Text>
-        <Text>Phone: {this.state.Phone}</Text>
-        <Text>UserName: {this.state.UserName}</Text>
-        </View> */

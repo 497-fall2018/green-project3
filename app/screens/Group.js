@@ -1,6 +1,6 @@
 import React from 'react';
-import { FlatList, StyleSheet,Text, View, Image, Button, Icon, TouchableOpacity, TextInput } from 'react-native';
-import { CheckBox } from 'react-native-elements'
+import { FlatList, StyleSheet,Text, View, Image, Icon, TouchableOpacity, TextInput } from 'react-native';
+import { CheckBox, Badge, Button } from 'react-native-elements'
 import CodeInput from 'react-native-confirmation-code-input';
 import TimerCountdown from 'react-native-timer-countdown';
 
@@ -84,29 +84,10 @@ class Share extends React.Component{
     render() {
       return (
         <View style = {styles.container}>
-          <CheckBox style = {styles.checkbox}
-            title='#'
-            checked={this.state.checked}
-          />
-
-          <CheckBox style = {styles.checkbox}
-            title='email-id'
-            checked={this.state.checked}
-          />
-
-          <CheckBox style = {styles.checkbox}
-            title='LinkedIn'
-            checked={this.state.checked}
-          />
-
-          <CheckBox style = {styles.checkbox}
-            title='Facebook'
-            checked={this.state.checked}
-          />
-
-          <CheckBox style = {styles.checkbox}
-            title='email-id'
-            checked={this.state.checked}
+          <Badge
+            containerStyle={{ backgroundColor: 'violet'}}
+            value={this.wordList[0]}
+            textStyle={{ color: 'black' }}
           />
         </View>
       );

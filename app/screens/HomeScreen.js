@@ -4,6 +4,8 @@ import { CheckBox } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CodeInput from 'react-native-confirmation-code-input';
 import TimerCountdown from 'react-native-timer-countdown';
+import firebase from '../../config/config.js';
+
 
 class Home extends React.Component{
 
@@ -30,7 +32,22 @@ class Home extends React.Component{
       //    code.users.append(userid)
       //    return code
       //  }
-      var groupcode = 'TEST'
+      var groupcode = ''
+
+      firebase.database().ref('Groups').once('value').then(function(snapshot){
+        const exists = (snapshot.val() != null);
+        if (exists)  {
+          codeDict = snapshot.val()
+          // console.warn(codeDict)
+          for(var key in codeDict){
+            if (codeDict[key] == ''){
+              groupcode = key;
+            }
+          }
+          // console.warn(groupcode)
+        }
+      }).catch(error => console.log(error));
+
       this.setState({
         startGroup:true,
         groupcode:groupcode,

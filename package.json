@@ -23,8 +23,7 @@
     "react-native-plus-button-box": "^1.1.0",
     "react-native-simple-card-view": "^0.3.0",
     "react-native-timer-countdown": "^2.0.3",
-    "react-navigation": "^3.0.0",
-    "util": "*"
+    "react-navigation": "^3.0.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

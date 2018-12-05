@@ -19,41 +19,32 @@ class Home extends React.Component{
         startGroup:false,
         joinGroup:false,
         userid:'testuser1',
-        groupcode:'',
-        groupusers:[]
+        groupcode:'testcode',
+        groupusers:[],
+        db:null
       }
     }
-
     createGroup(userid){
-      //this should be the call to the db to return an empty groupcode
-      //for now, it is hardcoded as TEST
-      //for code in groupcodes:
-      //  if code.users.length == 0{
-      //    code.users.append(userid)
-      //    return code
-      //  }
-      var groupcode = ''
-
-      firebase.database().ref('Groups').once('value').then(function(snapshot){
+      var that = this;
+      firebase.database().ref('Groups').once('value')
+      .then((snapshot) => {
         const exists = (snapshot.val() != null);
         if (exists)  {
           codeDict = snapshot.val()
           // console.warn(codeDict)
           for(var key in codeDict){
             if (codeDict[key] == ''){
-              groupcode = key;
+              this.setState({groupcode:key});
             }
           }
-          // console.warn(groupcode)
+          console.warn(this.state.groupcode)
         }
-      }).catch(error => console.log(error));
-
-      this.setState({
-        startGroup:true,
-        groupcode:groupcode,
-        groupusers:[userid]
       })
-      this.props.navigation.navigate('Group')
+      setTimeout(function(){that.navtoGroup()}, 500);
+    }
+
+    navtoGroup(){
+      this.props.navigation.navigate('Group',{groupcode:this.state.groupcode})
     }
 
     joinGroup(groupcode){

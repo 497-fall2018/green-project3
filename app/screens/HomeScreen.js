@@ -1,5 +1,6 @@
 import React from 'react';
-import { FlatList, StyleSheet,Text, View, Image, Button, TouchableOpacity, TextInput } from 'react-native';
+import { FlatList, StyleSheet,Text, View, Image, TouchableOpacity, TextInput } from 'react-native';
+import { Button} from 'react-native-elements'
 import { CheckBox } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CodeInput from 'react-native-confirmation-code-input';
@@ -80,7 +81,9 @@ class Home extends React.Component{
       console.log("success");
   }
 
-
+  userLogout(){
+    firebase.auth().signOut();
+  }
 
 
     createGroup(userid){
@@ -180,6 +183,7 @@ class Home extends React.Component{
         <View style = {styles.container}>
         { this.state.loggedin == true? (
           <View>
+            <TouchableOpacity onPress={()=>this.userLogout()}><Text style={{color:'red',fontWeight:'bold'}}>Logout</Text></TouchableOpacity>
             <Text>Logged UserId-------  {this.state.userId}</Text>
             <Text>Welcome-------   { this.state.UserName }</Text>
          <CheckBox style = {styles.checkbox}

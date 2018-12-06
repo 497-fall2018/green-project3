@@ -96,6 +96,15 @@ class Home extends React.Component{
             facebooklink:'https://www.facebook.com/ryanmchenry2',
             linkedinlink:'https://www.linkedin.com/in/ryanmchenry2'
       }
+
+      firebase.database().ref('Users/'+userid).once('value')
+      .then((snapshot) => {
+        const exists = (snapshot.val() != null);
+        if (exists)  {
+          userobj = snapshot.val()
+        console.warn(userobj)
+        }
+      })
       return userobj
     }
 

@@ -40,6 +40,7 @@ class Home extends React.Component{
           console.warn(this.state.groupcode)
         }
       })
+      firebase.database().ref('Groups/' + this.state.groupcode).set([userid]);
       setTimeout(function(){that.navtoGroup()}, 500);
     }
 
@@ -56,12 +57,23 @@ class Home extends React.Component{
       //     userids += dict[code] (this is the list of userids)
       // return userids;
 
-      var userids = ['testuser1','testuser2','testuser3','testuser4']
-      this.setState({
-        joinGroup:true,
-        groupcode:groupcode,
-        groupusers:userids
+      // var userids = ['testuser1','testuser2','testuser3','testuser4']
+      var that = this;
+
+      firebase.database().ref('Groups/'+groupcode).once('value')
+      .then((snapshot) => {
+        console.warn(snapshot.val())
+        const exists = (snapshot.val() != null);
+        if (exists)  {
+          this.setState({
+            joinGroup:true,
+            groupcode:groupcode,
+            groupusers:[snapshot.val()]
+        });
+        console.warn(this.state.groupusers)
+        }
       })
+      setTimeout(function(){that.navtoGroup()}, 500);
     }
 
     getUser(userid){
@@ -152,7 +164,7 @@ class Home extends React.Component{
               borderRadius: 5
             }}
             containerStyle={{ marginTop: 20 }}
-            onPress={() => this.setState({joinGroup: !this.state.joinGroup})}>
+            onPress={() => this.joinGroup("able")}>
             <Text style={styles.customButtonText}> JOIN GROUP </Text>
             </TouchableOpacity>
 

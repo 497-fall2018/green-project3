@@ -44,10 +44,6 @@ class Home extends React.Component{
       setTimeout(function(){that.navtoGroup()}, 500);
     }
 
-    navtoGroup(){
-      this.props.navigation.navigate('Group',{groupcode:this.state.groupcode})
-    }
-
     joinGroup(groupcode){
       // this should query the db's groups table to find the matching dictionary object
       // it will return the list of user id's associated with the specific code
@@ -103,7 +99,13 @@ class Home extends React.Component{
       return userobj
     }
 
+    navtoGroup(){
+      this.props.navigation.navigate('Group',{groupcode:this.state.groupcode})
+    }
 
+    navtoEnterCode(){
+      this.props.navigation.navigate('EnterCode')
+    }
 
     render() {
       return (
@@ -164,7 +166,7 @@ class Home extends React.Component{
               borderRadius: 5
             }}
             containerStyle={{ marginTop: 20 }}
-            onPress={() => this.joinGroup("able")}>
+            onPress={() => this.navtoEnterCode()}>
             <Text style={styles.customButtonText}> JOIN GROUP </Text>
             </TouchableOpacity>
 

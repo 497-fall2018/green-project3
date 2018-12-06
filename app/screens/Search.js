@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react';
-import { Button, FlatList, StyleSheet,Text, View, Image, TouchableHighlight, TouchableOpacity, Platform } from 'react-native'
+import { Button, FlatList, StyleSheet,Text, View, Image, TouchableHighlight, Platform } from 'react-native'
 import firebase from '../../config/config.js';
 // import CodeInput from 'react-native-confirmation-code-input';
 import AddContact from '../components/AddContact.js';
@@ -108,7 +108,7 @@ class Search extends Component{
     sendRequest(Code){
         var that = this;
         console.log("******************");
-        firebase.database().ref('Codes/'+Code).child('UserId').once('value').then(function(snapshot){
+        firebase.database().ref('Groups/'+Code).once('value').then(function(snapshot){
             const exists = (snapshot.val() != null);
             if (exists)  {
               UserId = snapshot.val()
@@ -127,6 +127,8 @@ class Search extends Component{
             }
           }).catch(error => console.log(error));
     }
+
+
 
     onFinishCheckingCode = code => {
       if (code === '1234') {

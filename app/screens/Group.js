@@ -13,18 +13,29 @@ class Group extends React.Component{
         input: true,
         code:"able",
         checked: true,
-        userInfo: [],
+        userInfo: [
+          {
+            UserName: 'Amy Farha',
+            avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+            subtitle: 'Vice President'
+          },
+          // {
+          //   UserName: 'Chris Jackson',
+          //   avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+          //   subtitle: 'Vice Chairman'
+          // },
+        ],
         userList: [
           {
-            name: 'Amy Farha',
+            UserName: 'Amy Farha',
             avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
             subtitle: 'Vice President'
           },
           {
-            name: 'Chris Jackson',
+            UserName: 'Chris Jackson',
             avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
             subtitle: 'Vice Chairman'
-  },
+          },
         ],
       }
       this.wordList = [
@@ -61,6 +72,10 @@ class Group extends React.Component{
            "well","went","were","west","wet","what","when","whom","wide","wife","wild","will","wind","wing","wire","wise","wish","with","wolf",
            "wood","wool","word","wore","work","yard","year","your","zero","zulu"
          ]
+    }
+
+    componentWillMount(){
+      this.getGroupInfo();
     }
 
     generateRandomNumber(min , max) {
@@ -107,7 +122,11 @@ class Group extends React.Component{
 
     getGroupInfo(){
       const param = this.props.navigation.getParam('groupusers', 'failed');
-      this.setState({userInfo: param.map((userid) => this.getUser(userid))})
+      console.warn("Params:", param)
+      this.getUsers(param)
+
+      setTimeout(this.dummyfunction, 1000);
+
       console.warn("GroupInfo:", this.state.userInfo)
     }
 
@@ -119,25 +138,22 @@ class Group extends React.Component{
     //   });
     // }
 
-    getUser(userid){
-      // var userobj = {
-      //       id:value,
-      //       name:'Test User',
-      //       email:'test@user.com',
-      //       phone:'555-555-1234',
-      //       address:'123 Test Ave, Evanston IL 60201',
-      //       facebooklink:'https://www.facebook.com/ryanmchenry2',
-      //       linkedinlink:'https://www.linkedin.com/in/ryanmchenry2'
-      // }
-      firebase.database().ref('Users/'+userid).once('value')
-      .then((snapshot) => {
-        const exists = (snapshot.val() != null);
-        if (exists)  {
-          var userobj = snapshot.val();
-        console.warn("GetUSer:"+userobj)
-        }
-      })
-      return userobj
+    dummyfunction(){
+
+    }
+
+    getUsers(groupusers){
+      for(i in groupusers){
+        console.warn("userid:"+groupusers[i])
+        firebase.database().ref('Users/'+groupusers[i]).once('value')
+        .then((snapshot) => {
+          const exists = (snapshot.val() != null);
+          if (exists)  {
+            this.state.userInfo.push(snapshot.val());
+            console.warn("GetUSer:"+snapshot.val()["UserName"])
+          }
+        })
+      }
     }
 
     render() {
@@ -146,6 +162,10 @@ class Group extends React.Component{
       // const param = this.props.navigation.getParam('groupcode', 'failed')
       // var info = this.getGroupInfo(param)
       // console.warn("GroupRender:", info)
+      // if(this.state.userInfo.length != 0){
+      //   console.warn("GroupRender:", this.state.userInfo[0].UserName)
+      // }
+
       return (
         <View style = {styles.container}>
           <Badge

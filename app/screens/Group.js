@@ -12,7 +12,7 @@ class Group extends React.Component{
       super(props);
       this.state={
         input: true,
-        code:"able",
+        code:"ABLE",
         checked: true,
         ready: false,
         userInfo: [
@@ -126,12 +126,9 @@ class Group extends React.Component{
 
     getGroupInfo(){
       const param = this.props.navigation.getParam('groupusers', 'failed');
-      console.warn("Params:", param)
       this.getUsers(param)
 
       setTimeout(this.dummyfunction, 1000);
-
-      console.warn("GroupInfo:", this.state.userInfo)
     }
 
     // userInfoToUserList(userInfo){
@@ -148,7 +145,6 @@ class Group extends React.Component{
 
     getUsers(groupusers){
       for(i in groupusers){
-        console.warn("userid:"+groupusers[i])
         firebase.database().ref('Users/'+groupusers[i]).once('value')
         .then((snapshot) => {
           const exists = (snapshot.val() != null);
@@ -164,7 +160,7 @@ class Group extends React.Component{
     async addContactAsync(item) {
       // Ask for permission to query contacts.
       const permission = await Permissions.askAsync(Permissions.CONTACTS);
-      
+
       if (permission.status !== 'granted') {
         // Permission was denied...
         return;
@@ -198,9 +194,9 @@ class Group extends React.Component{
         return (
         <View style = {styles.container}>
           <Badge
-            containerStyle={{ backgroundColor: 'violet'}}
             value={this.state.code}
             textStyle={{ color: 'black' }}
+            wrapperStyle = {{backgroundColor: 'black'}}
             // onPress={() => {this.generateCode()}}
           />
         {/* <Text>THIS IS RYAN'S THING: {param}</Text>?*/}
@@ -217,16 +213,19 @@ class Group extends React.Component{
         return (
         <View style = {styles.container}>
           <Badge
-            containerStyle={{ backgroundColor: 'violet'}}
+            containerStyle={{ backgroundColor: 'purple',
+          borderRadius:0,
+        padding: 0}}
             value={this.state.code}
-            textStyle={{ color: 'black' }}
+            textStyle={{ color: 'white', padding:30,
+            fontSize:24, fontWeight:'bold', letterSpacing:2}}
             // onPress={() => {this.generateCode()}}
           />
         {/* <Text>THIS IS RYAN'S THING: {param}</Text>?*/}
         </View>
       );
       }
-      
+
     }
 
 

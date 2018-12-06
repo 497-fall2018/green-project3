@@ -27,7 +27,7 @@ class userAuth extends React.Component{
             authStep: 1,
             email: '',
             pass: '',
-        }   
+        }
     }
 
     componentDidMount = () =>{
@@ -43,16 +43,16 @@ class userAuth extends React.Component{
                     <View style = {{marginVertical: 20,flexDirection: 'row'}}>
                         <TouchableOpacity onPress={() => this.setState({ authStep:1 })} >
                             <Text style = {{fontWeight:'bold',color:'green'}}>Login</Text>
-                         </TouchableOpacity>                   
+                         </TouchableOpacity>
                     </View>
                 ) : (
                     <View style={{marginVertical:20}}>
                         <Text style={{fontWeight:'bold',marginBottom:20 }}>NameTag Login</Text>
-                        <Text>Email Address: </Text>
+                        <Text style={{color:'black'}}>Email Address: </Text>
                         <TextInput
                         editable={true}
                         keyboardType={'email-address'}
-                        placeholder={'enter your email adress'}
+                        placeholder={'enter your email address'}
                         onChangeText={(text) => this.setState({email:text})}
                         value={this.state.email}
                         style={{width:250,height:25, marginVertical:10, padding:5,borderWidth:1, borderColor:'grey',borderRadius:3}}
@@ -62,6 +62,7 @@ class userAuth extends React.Component{
                         <Text>Password: </Text>
                         <TextInput
                         editable={true}
+                        secureTextEntry={true}
                         placeholder={'enter your password'}
                         onChangeText={(text) => this.setState({pass:text})}
                         value={this.state.pass}

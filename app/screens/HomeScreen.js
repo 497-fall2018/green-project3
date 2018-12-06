@@ -99,7 +99,6 @@ class Home extends React.Component{
               this.setState({groupcode:key});
             }
           }
-          console.warn(this.state.groupcode)
         }
       })
       firebase.database().ref('Groups/' + this.state.groupcode).set([userid]);
@@ -183,9 +182,8 @@ class Home extends React.Component{
         <View style = {styles.container}>
         { this.state.loggedin == true? (
           <View>
-            <TouchableOpacity onPress={()=>this.userLogout()}><Text style={{color:'red',fontWeight:'bold'}}>Logout</Text></TouchableOpacity>
-            <Text>Logged UserId-------  {this.state.userId}</Text>
-            <Text>Welcome-------   { this.state.UserName }</Text>
+
+            <Text style={styles.welcomeText}>Welcome, { this.state.UserName }.</Text>
          <CheckBox style = {styles.checkbox}
             title='Phone Number'
             checked={this.state.phoneNumberCheck}
@@ -214,16 +212,6 @@ class Home extends React.Component{
             title="Start Group"
             loading
             loadingProps={{ size: "large", color: "rgba(111, 202, 186, 1)" }}
-            titleStyle={{ fontWeight: "700" }}
-            buttonStyle={{
-              backgroundColor: "#000000",
-              width: 300,
-              height: 45,
-              borderColor: "transparent",
-              borderWidth: 0,
-              borderRadius: 5
-            }}
-            containerStyle={{ marginTop: 20 }}
             onPress={() => this.createGroup(this.state.userid)}
           >
             <Text style={styles.customButtonText}>START GROUP</Text>
@@ -232,19 +220,12 @@ class Home extends React.Component{
           <TouchableOpacity
           style= {styles.customButton}
             loadingProps={{ size: "large", color: "rgba(111, 202, 186, 1)" }}
-            titleStyle={{ fontWeight: "700" }}
-            buttonStyle={{
-              backgroundColor: "rgba(92, 99,216, 1)",
-              width: 300,
-              height: 45,
-              borderColor: "transparent",
-              borderWidth: 0,
-              borderRadius: 5
-            }}
-            containerStyle={{ marginTop: 20 }}
             onPress={() => this.navtoEnterCode()}>
             <Text style={styles.customButtonText}> JOIN GROUP </Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={()=>this.userLogout()}
+            style= {styles.customButton}
+            ><Text style={styles.customButtonText} > LOG OUT</Text></TouchableOpacity>
           </View>
         ) : (
           <View>
@@ -262,8 +243,7 @@ class Home extends React.Component{
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 150,
-     paddingTop: 23,
+    marginTop: 20,
      width: '80%',
      marginLeft: '10%'
   },
@@ -293,6 +273,13 @@ const styles = StyleSheet.create({
      color: 'white',
      fontWeight:'700',
      letterSpacing: 1,
+   },
+   welcomeText:{
+     fontSize: 24,
+     fontWeight:'bold',
+     color: 'purple',
+     marginTop: 30,
+     marginBottom: 25
    }
 })
 

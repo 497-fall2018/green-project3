@@ -42,11 +42,11 @@ class EnterCode extends React.Component{
 
     render(){
       return(
-        <View  style={{backgroundColor: '#CC99FF'}}>
+        <View  style={{backgroundColor: 'purple'}}>
           <Text style={{fontWeight: 'bold', marginTop:200, textAlign: 'center', fontSize: 32}}>
             Enter 4-digit Code to search for contacts</Text>
           <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+              style={{height: 40, borderColor: 'white', border: '1px solid #fff', Width: 1}}
               onChangeText={(text) => this.updateCode(text)}
               value={this.state.text}
             />

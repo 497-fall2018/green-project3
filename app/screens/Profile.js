@@ -1,16 +1,33 @@
 import React from 'react';
 import { FlatList, StyleSheet,Text, View, Image, Alert, TouchableOpacity} from 'react-native';
 import { Card, ListItem, Button, Icon, Input } from 'react-native-elements'
+import firebase from '../../config/config.js';
 
 class Profile extends React.Component{
 
     constructor(props){
         super(props);
         this.state={
-            text: ''
+            text: '',
+            loggedin: true
         }
     }
 
+    componentDidMount = () =>{
+      var that = this;
+      firebase.auth().onAuthStateChanged(function(user){
+        if(user){
+          that.setState({
+            loggedin:true
+          });
+        }else{
+          that.setState({
+            loggedin:false
+          })
+        }
+      })
+      
+    }
 
     onPressButton(){
         Alert.alert(
@@ -21,52 +38,61 @@ class Profile extends React.Component{
     render()
     {
         return(
-            <View>
-                    <Card
-                      containerStyle={{marginTop: 200}}
-                      image={require('../../assets/profilePhoto.jpg')}
-                      imageProps={{marginTop: 20, resizeMode: 'contain'}}>
-                      <ListItem
-                        key={0}
-                        title={"Name"}
-                        textInput={true}
-                        textInputValue={'Wei Hang'}
-                        hideChevron
-                      />
-                      <ListItem
-                        key={1}
-                        title={"Phone Number"}
-                        textInput={true}
-                        hideChevron
-                      />
-                      <ListItem
-                        key={2}
-                        title={"Email"}
-                        textInput={true}
-                        textInputValue={'wehang2020@u.northwestern.edu'}
-                        hideChevron
-                      />
-                      <ListItem
-                        key={3}
-                        title={"LinkedIn"}
-                        textInput={true}
-                        hideChevron
-                      />
-                      <ListItem
-                        key={4}
-                        title={"Facebook"}
-                        textInput={true}
-                        hideChevron
-                      />
-                      <TouchableOpacity style = {styles.customButton}
-                        icon={<Icon name='code' color='#ffffff' />}
-                        onPress={()=>this.onPressButton()}
-                        backgroundColor='#03A9F4'
-                        buttonStyle={{marginTop: 10, borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                        title='Save' >
-                        <Text style={styles.customButtonText}> SAVE </Text>
-                        </TouchableOpacity>
-                    </Card>
+         
+          <View style={{flex: 1, justifyContent: 'center', alignItems:'center'}}>
+              { this.state.loggedin == true ? (
+                 <Card
+                 containerStyle={{marginTop: 200}}
+                 image={require('../../assets/profilePhoto.jpg')}
+                 imageProps={{marginTop: 20, resizeMode: 'contain'}}>
+                 <ListItem
+                   key={0}
+                   title={"Name"}
+                   textInput={true}
+                   textInputValue={'Wei Hang'}
+                   hideChevron
+                 />
+                 <ListItem
+                   key={1}
+                   title={"Phone Number"}
+                   textInput={true}
+                   hideChevron
+                 />
+                 <ListItem
+                   key={2}
+                   title={"Email"}
+                   textInput={true}
+                   textInputValue={'wehang2020@u.northwestern.edu'}
+                   hideChevron
+                 />
+                 <ListItem
+                   key={3}
+                   title={"LinkedIn"}
+                   textInput={true}
+                   hideChevron
+                 />
+                 <ListItem
+                   key={4}
+                   title={"Facebook"}
+                   textInput={true}
+                   hideChevron
+                 />
+                 <TouchableOpacity style = {styles.customButton}
+                   icon={<Icon name='code' color='#ffffff' />}
+                   onPress={()=>this.onPressButton()}
+                   backgroundColor='#03A9F4'
+                   buttonStyle={{marginTop: 10, borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+                   title='Save' >
+                   <Text style={styles.customButtonText}> SAVE </Text>
+                   </TouchableOpacity>
+               </Card>
+              ) : (
+                <View >
+                  <Text>You are not logged in</Text>
+                  <Text>Please login in</Text>
+                </View>
+              ) }
+                   
 
             </View>
         )

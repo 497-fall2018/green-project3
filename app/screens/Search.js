@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     minHeight: 555,
   },
+  
 
   inputLabel: {
     paddingTop: 100,

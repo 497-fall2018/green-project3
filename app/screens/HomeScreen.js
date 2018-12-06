@@ -5,13 +5,15 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CodeInput from 'react-native-confirmation-code-input';
 import TimerCountdown from 'react-native-timer-countdown';
 import firebase from '../../config/config.js';
-
+import UserAuth from '../components/auth.js'
 
 class Home extends React.Component{
 
     constructor(props){
       super(props);
+
       this.state={
+        loggedin: true,
         phoneNumberCheck: true,
         emailCheck: true,
         linkedinCheck: true,
@@ -24,6 +26,63 @@ class Home extends React.Component{
         db:null
       }
     }
+
+    componentDidMount = () =>{
+      var that = this;
+      firebase.auth().onAuthStateChanged(function(user){
+        if(user){
+          that.setState({
+            loggedin:true,
+            userId:user.uid
+          });
+          var UserId = user.uid;
+          console.log("UserId:::"+UserId)
+          firebase.database().ref('Users/'+UserId).once('value').then(function(snapshot){
+            console.log("Have send the request...")
+            const exists = (snapshot.val() != null);
+            if(exists){
+                Email = snapshot.val().Email
+                console.log("Email::",Email)
+                Phone = snapshot.val().Phone
+                console.log("Phone::",Phone)
+                UserName = snapshot.val().UserName
+                console.log("UserName::",UserName)
+                LinkedIn = snapshot.val().LinkedIn
+                console.log("LinkedIn::",LinkedIn)
+                Facebook = snapshot.val().Facebook
+                console.log("Facebook::",Facebook)
+                Image1 = snapshot.val().Image;
+                console.log("Image1::",Image1);
+                console.log("Email:",Email,"Phone",Phone,"UserName",UserName,"LinkedIn",LinkedIn,"Facebook",Facebook,"Image1",Image1)
+                that.setValue(Email,Phone,UserName,LinkedIn,Facebook,Image1)
+            }
+          }).catch(error => console.log(error));
+
+        }else{
+          that.setState({
+            loggedin:false
+          })
+        }
+      })
+  
+    }
+
+    setValue(Email,Phone,UserName,LinkedIn,Facebook,Image1){
+      console.log('hhhhhhhhhhhhhh')
+      this.setState({
+          Email:Email,
+          Phone:Phone,
+          UserName:UserName,
+          LinkedIn:LinkedIn,
+          Facebook:Facebook,
+          Image:Image1
+      })
+      console.log("success");
+  }
+
+
+
+
     createGroup(userid){
       var that = this;
       firebase.database().ref('Groups').once('value')
@@ -119,7 +178,11 @@ class Home extends React.Component{
     render() {
       return (
         <View style = {styles.container}>
-          <CheckBox style = {styles.checkbox}
+        { this.state.loggedin == true? (
+          <View>
+            <Text>Logged UserId-------  {this.state.userId}</Text>
+            <Text>Welcome-------   { this.state.UserName }</Text>
+         <CheckBox style = {styles.checkbox}
             title='Phone Number'
             checked={this.state.phoneNumberCheck}
             onPress={() => this.setState({phoneNumberCheck: !this.state.phoneNumberCheck})}
@@ -178,9 +241,14 @@ class Home extends React.Component{
             onPress={() => this.navtoEnterCode()}>
             <Text style={styles.customButtonText}> JOIN GROUP </Text>
             </TouchableOpacity>
+          </View>
+        ) : (
+          <View>
+          <UserAuth message="please login to use NameTag"></UserAuth>
+          </View>
+        )}
 
         </View>
-
 
       );
     }

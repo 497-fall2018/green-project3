@@ -35,13 +35,53 @@ class Home extends React.Component{
             loggedin:true,
             userId:user.uid
           });
+          var UserId = user.uid;
+          console.log("UserId:::"+UserId)
+          firebase.database().ref('Users/'+UserId).once('value').then(function(snapshot){
+            console.log("Have send the request...")
+            const exists = (snapshot.val() != null);
+            if(exists){
+                Email = snapshot.val().Email
+                console.log("Email::",Email)
+                Phone = snapshot.val().Phone
+                console.log("Phone::",Phone)
+                UserName = snapshot.val().UserName
+                console.log("UserName::",UserName)
+                LinkedIn = snapshot.val().LinkedIn
+                console.log("LinkedIn::",LinkedIn)
+                Facebook = snapshot.val().Facebook
+                console.log("Facebook::",Facebook)
+                Image1 = snapshot.val().Image;
+                console.log("Image1::",Image1);
+                console.log("Email:",Email,"Phone",Phone,"UserName",UserName,"LinkedIn",LinkedIn,"Facebook",Facebook,"Image1",Image1)
+                that.setValue(Email,Phone,UserName,LinkedIn,Facebook,Image1)
+            }
+          }).catch(error => console.log(error));
+
         }else{
           that.setState({
             loggedin:false
           })
         }
       })
+  
     }
+
+    setValue(Email,Phone,UserName,LinkedIn,Facebook,Image1){
+      console.log('hhhhhhhhhhhhhh')
+      this.setState({
+          Email:Email,
+          Phone:Phone,
+          UserName:UserName,
+          LinkedIn:LinkedIn,
+          Facebook:Facebook,
+          Image:Image1
+      })
+      console.log("success");
+  }
+
+
+
 
     createGroup(userid){
       var that = this;
@@ -131,7 +171,8 @@ class Home extends React.Component{
         <View style = {styles.container}>
         { this.state.loggedin == true? (
           <View>
-            <Text>userId:::   { this.state.userId }</Text>
+            <Text>Logged UserId-------  {this.state.userId}</Text>
+            <Text>Welcome-------   { this.state.UserName }</Text>
          <CheckBox style = {styles.checkbox}
             title='Phone Number'
             checked={this.state.phoneNumberCheck}

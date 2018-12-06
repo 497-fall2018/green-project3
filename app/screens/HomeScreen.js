@@ -5,13 +5,19 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CodeInput from 'react-native-confirmation-code-input';
 import TimerCountdown from 'react-native-timer-countdown';
 import firebase from '../../config/config.js';
-
+import UserAuth from '../components/auth.js'
 
 class Home extends React.Component{
 
+
+
+
     constructor(props){
       super(props);
+
+
       this.state={
+        loggedin: true,
         phoneNumberCheck: true,
         emailCheck: true,
         linkedinCheck: true,
@@ -22,6 +28,21 @@ class Home extends React.Component{
         groupcode:'',
         groupusers:[]
       }
+    }
+
+    componentDidMount = () =>{
+      var that = this;
+      firebase.auth().onAuthStateChanged(function(user){
+        if(user){
+          that.setState({
+            loggedin:true
+          });
+        }else{
+          that.setState({
+            loggedin:false
+          })
+        }
+      })
     }
 
     createGroup(userid){
@@ -105,7 +126,9 @@ class Home extends React.Component{
     render() {
       return (
         <View style = {styles.container}>
-          <CheckBox style = {styles.checkbox}
+        { this.state.loggedin == true? (
+          <View>
+         <CheckBox style = {styles.checkbox}
             title='Phone Number'
             checked={this.state.phoneNumberCheck}
             onPress={() => this.setState({phoneNumberCheck: !this.state.phoneNumberCheck})}
@@ -164,9 +187,14 @@ class Home extends React.Component{
             onPress={() => this.setState({joinGroup: !this.state.joinGroup})}>
             <Text style={styles.customButtonText}> JOIN GROUP </Text>
             </TouchableOpacity>
+          </View>
+        ) : (
+          <View>
+          <UserAuth message="please login to use NameTag"></UserAuth>
+          </View>
+        )}
 
         </View>
-
 
       );
     }

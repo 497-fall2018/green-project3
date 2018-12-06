@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react';
-import { Button, FlatList, StyleSheet,Text, View, Image, TouchableHighlight, TouchableOpacity, Platform } from 'react-native'
+import { Button, FlatList, StyleSheet,Text, View, Image, TouchableHighlight, Platform } from 'react-native'
 import firebase from '../../config/config.js';
 // import CodeInput from 'react-native-confirmation-code-input';
 import AddContact from '../components/AddContact.js';
@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     minHeight: 555,
   },
+  
 
   inputLabel: {
     paddingTop: 100,

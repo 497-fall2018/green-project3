@@ -109,7 +109,7 @@ class Search extends Component{
     sendRequest(Code){
         var that = this;
         console.log("******************");
-        firebase.database().ref('Codes/'+Code).child('UserId').once('value').then(function(snapshot){
+        firebase.database().ref('Groups/'+Code).once('value').then(function(snapshot){
             const exists = (snapshot.val() != null);
             if (exists)  {
               UserId = snapshot.val()
@@ -128,6 +128,8 @@ class Search extends Component{
             }
           }).catch(error => console.log(error));
     }
+
+
 
     onFinishCheckingCode = code => {
       if (code === '1234') {

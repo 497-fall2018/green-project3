@@ -6,12 +6,14 @@ import Search from './app/screens/Search.js';
 import Profile from './app/screens/Profile.js';
 import HomeScreen from './app/screens/HomeScreen.js';
 import Group from './app/screens/Group.js';
+import EnterCode from './app/screens/EnterCode.js';
 
 const Nav = createStackNavigator({
   Home:{screen:HomeScreen},
   Group:{ screen: Group },
   Search:{ screen: Search },
-  Profile:{ screen: Profile }
+  Profile:{ screen: Profile },
+  EnterCode:{ screen: EnterCode}
 });
 
 export default createAppContainer(Nav);

@@ -1,9 +1,10 @@
 import React from 'react';
-import { FlatList, StyleSheet,Text, View, Image, Icon, TouchableOpacity, TextInput } from 'react-native';
-import { CheckBox, Badge, Button, ListItem} from 'react-native-elements'
+import { FlatList, StyleSheet,Text, Alert, View, Image,  TouchableOpacity, TextInput } from 'react-native';
+import { CheckBox, Badge, Button, ListItem, Icon} from 'react-native-elements'
 import CodeInput from 'react-native-confirmation-code-input';
 import TimerCountdown from 'react-native-timer-countdown';
 import firebase from '../../config/config.js';
+import { Permissions, Contacts } from 'expo';
 
 class Group extends React.Component{
 
@@ -13,12 +14,13 @@ class Group extends React.Component{
         input: true,
         code:"able",
         checked: true,
+        ready: false,
         userInfo: [
-          {
-            UserName: 'Amy Farha',
-            avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-            subtitle: 'Vice President'
-          },
+          // {
+          //   UserName: 'Amy Farha',
+          //   avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+          //   subtitle: 'Vice President'
+          // },
           // {
           //   UserName: 'Chris Jackson',
           //   avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
@@ -117,6 +119,8 @@ class Group extends React.Component{
         title={item.UserName}
         subtitle={'Vice President'}
         leftAvatar={{ source: { uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' } }}
+        onPress={()=>{this.addContactAsync(item)}}
+        rightIcon={{ name: 'person-add' }}
       />
     )
 
@@ -150,10 +154,35 @@ class Group extends React.Component{
           const exists = (snapshot.val() != null);
           if (exists)  {
             this.state.userInfo.push(snapshot.val());
-            console.warn("GetUSer:"+snapshot.val()["UserName"])
+            console.warn("GetUSer:"+snapshot.val()["UserName"]);
+      this.setState({ready: true})
           }
         })
       }
+    }
+
+    async addContactAsync(item) {
+      // Ask for permission to query contacts.
+      const permission = await Permissions.askAsync(Permissions.CONTACTS);
+      
+      if (permission.status !== 'granted') {
+        // Permission was denied...
+        return;
+      }
+      console.log(item);
+      const contact = {
+        //[Contacts.Fields.FirstName]: item.UserName,
+        [Contacts.Fields.LastName]: item['UserName'],
+        [Contacts.Fields.Emails]: [{['email']: item['Email'], ['label']: "E-mail"}],
+        [Contacts.Fields.PhoneNumbers]: [{['number']: item['Phone'].toString(), ['label']: "Phone"}],
+        [Contacts.Fields.UrlAddresses]: [{['url']: item['Facebook'], ['label']: "Facebook"}]
+      }
+      const contactId = await Contacts.addContactAsync(contact);
+      Alert.alert(
+          'Your have successfully added',
+          item['UserName'],
+          'to your contacts!'
+        );
     }
 
     render() {
@@ -165,8 +194,8 @@ class Group extends React.Component{
       // if(this.state.userInfo.length != 0){
       //   console.warn("GroupRender:", this.state.userInfo[0].UserName)
       // }
-
-      return (
+      if (this.state.ready){
+        return (
         <View style = {styles.container}>
           <Badge
             containerStyle={{ backgroundColor: 'violet'}}
@@ -183,6 +212,21 @@ class Group extends React.Component{
           />
         </View>
       );
+      }
+      else{
+        return (
+        <View style = {styles.container}>
+          <Badge
+            containerStyle={{ backgroundColor: 'violet'}}
+            value={this.state.code}
+            textStyle={{ color: 'black' }}
+            // onPress={() => {this.generateCode()}}
+          />
+        {/* <Text>THIS IS RYAN'S THING: {param}</Text>?*/}
+        </View>
+      );
+      }
+      
     }
 
 

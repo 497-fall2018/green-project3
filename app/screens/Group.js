@@ -107,6 +107,7 @@ class Group extends React.Component{
 
     render() {
       this.generateCode();
+      const param = this.props.navigation.getParam('groupcode', 'failed')
       return (
         <View style = {styles.container}>
           <Badge
@@ -115,6 +116,7 @@ class Group extends React.Component{
             textStyle={{ color: 'black' }}
             onPress={() => {this.generateCode()}}
           />
+        <Text>THIS IS RYAN'S THING: {param}</Text>
 
           <FlatList
             keyExtractor={this.keyExtractor}

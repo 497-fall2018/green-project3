@@ -14,6 +14,7 @@ class userAuth extends React.Component{
 
     constructor(props){
         super(props);
+        this.login();
         this.state = {
             authStep: 0,
             email: '',

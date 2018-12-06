@@ -14,7 +14,7 @@ class EnterCode extends React.Component{
 
     updateCode(text){
       var that = this
-      this.setState({code:text})
+      this.setState({code:text.toLowerCase()})
       setTimeout(function(){
         if (that.state.code.length == 4){
           that.joinGroup(that.state.code)
@@ -28,18 +28,16 @@ class EnterCode extends React.Component{
 
       firebase.database().ref('Groups/'+groupcode).once('value')
       .then((snapshot) => {
-        console.warn(snapshot.val())
         const exists = (snapshot.val() != null);
         if (exists)  {
           this.setState({
             joinGroup:true,
             groupcode:groupcode,
-            groupusers:[snapshot.val()]
-        });
-        console.warn(this.state.groupusers)
+            groupusers:snapshot.val()
+          });
         }
       })
-      setTimeout(function(){that.props.navigation.navigate('Group',{groupcode:that.state.code})}, 500);
+      setTimeout(function(){that.props.navigation.navigate('Group',{groupcode:that.state.code, groupusers:that.state.groupusers})}, 500);
     }
 
     render(){

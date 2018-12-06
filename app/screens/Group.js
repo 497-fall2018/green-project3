@@ -3,6 +3,7 @@ import { FlatList, StyleSheet,Text, View, Image, Icon, TouchableOpacity, TextInp
 import { CheckBox, Badge, Button, ListItem} from 'react-native-elements'
 import CodeInput from 'react-native-confirmation-code-input';
 import TimerCountdown from 'react-native-timer-countdown';
+import firebase from '../../config/config.js';
 
 class Group extends React.Component{
 
@@ -12,6 +13,7 @@ class Group extends React.Component{
         input: true,
         code:"able",
         checked: true,
+        userInfo: [],
         userList: [
           {
             name: 'Amy Farha',
@@ -97,30 +99,66 @@ class Group extends React.Component{
 
     renderItem = ({ item }) => (
       <ListItem
-        title={item.name}
-        subtitle={item.subtitle}
-        leftAvatar={{ source: { uri: item.avatar_url } }}
+        title={item.UserName}
+        subtitle={'Vice President'}
+        leftAvatar={{ source: { uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' } }}
       />
     )
 
+    getGroupInfo(){
+      const param = this.props.navigation.getParam('groupusers', 'failed');
+      this.setState({userInfo: param.map((userid) => this.getUser(userid))})
+      console.warn("GroupInfo:", this.state.userInfo)
+    }
 
+    // userInfoToUserList(userInfo){
+    //   return userInfo.map(info => {
+    //     name: info["UserName"],
+    //     avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+    //     subtitle: 'Vice President'
+    //   });
+    // }
+
+    getUser(userid){
+      // var userobj = {
+      //       id:value,
+      //       name:'Test User',
+      //       email:'test@user.com',
+      //       phone:'555-555-1234',
+      //       address:'123 Test Ave, Evanston IL 60201',
+      //       facebooklink:'https://www.facebook.com/ryanmchenry2',
+      //       linkedinlink:'https://www.linkedin.com/in/ryanmchenry2'
+      // }
+      firebase.database().ref('Users/'+userid).once('value')
+      .then((snapshot) => {
+        const exists = (snapshot.val() != null);
+        if (exists)  {
+          var userobj = snapshot.val();
+        console.warn("GetUSer:"+userobj)
+        }
+      })
+      return userobj
+    }
 
     render() {
-      this.generateCode();
-      const param = this.props.navigation.getParam('groupcode', 'failed')
+      // console.warn("render"+this.props.groupusers)
+      // this.generateCode();
+      // const param = this.props.navigation.getParam('groupcode', 'failed')
+      // var info = this.getGroupInfo(param)
+      // console.warn("GroupRender:", info)
       return (
         <View style = {styles.container}>
           <Badge
             containerStyle={{ backgroundColor: 'violet'}}
             value={this.state.code}
             textStyle={{ color: 'black' }}
-            onPress={() => {this.generateCode()}}
+            // onPress={() => {this.generateCode()}}
           />
-        <Text>THIS IS RYAN'S THING: {param}</Text>
+        {/* <Text>THIS IS RYAN'S THING: {param}</Text>?*/}
 
           <FlatList
             keyExtractor={this.keyExtractor}
-            data={this.state.userList}
+            data={this.state.userInfo}
             renderItem={this.renderItem}
           />
         </View>

@@ -64,7 +64,7 @@ class Home extends React.Component{
           })
         }
       })
-  
+
     }
 
     setValue(Email,Phone,UserName,LinkedIn,Facebook,Image1){
@@ -103,33 +103,33 @@ class Home extends React.Component{
       setTimeout(function(){that.navtoGroup()}, 500);
     }
 
-    joinGroup(groupcode){
-      // this should query the db's groups table to find the matching dictionary object
-      // it will return the list of user id's associated with the specific code
-      // var userids = []
-      // for code in groupcodes:
-      //   if code == groupcode:
-      //     userids += dict[code] (this is the list of userids)
-      // return userids;
-
-      // var userids = ['testuser1','testuser2','testuser3','testuser4']
-      var that = this;
-
-      firebase.database().ref('Groups/'+groupcode).once('value')
-      .then((snapshot) => {
-        console.warn(snapshot.val())
-        const exists = (snapshot.val() != null);
-        if (exists)  {
-          this.setState({
-            joinGroup:true,
-            groupcode:groupcode,
-            groupusers:[snapshot.val()]
-        });
-        console.warn(this.state.groupusers)
-        }
-      })
-      setTimeout(function(){that.navtoGroup()}, 500);
-    }
+    // joinGroup(groupcode){
+    //   // this should query the db's groups table to find the matching dictionary object
+    //   // it will return the list of user id's associated with the specific code
+    //   // var userids = []
+    //   // for code in groupcodes:
+    //   //   if code == groupcode:
+    //   //     userids += dict[code] (this is the list of userids)
+    //   // return userids;
+    //
+    //   // var userids = ['testuser1','testuser2','testuser3','testuser4']
+    //   var that = this;
+    //
+    //   firebase.database().ref('Groups/'+groupcode).once('value')
+    //   .then((snapshot) => {
+    //     console.warn(snapshot.val())
+    //     const exists = (snapshot.val() != null);
+    //     if (exists)  {
+    //       this.setState({
+    //         joinGroup:true,
+    //         groupcode:groupcode,
+    //         groupusers:snapshot.val()
+    //     });
+    //     console.warn(this.state.groupusers)
+    //     }
+    //   })
+    //   setTimeout(function(){that.navtoGroup()}, 500);
+    // }
 
     getUser(userid){
       //this should query the users table of the db to return the stored information

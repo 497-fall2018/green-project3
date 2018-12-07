@@ -132,7 +132,7 @@ class Group extends React.Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={() => this.refresh()}>
-          <Text>Reresh</Text>
+          <Text style = {{color:'red',fontSize:22,textAlign:'right'}}>Refresh</Text>
         </TouchableOpacity>
         <Badge
           value={this.state.code}

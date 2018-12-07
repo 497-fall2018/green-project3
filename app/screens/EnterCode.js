@@ -61,13 +61,11 @@ class EnterCode extends React.Component{
       return(
    
         <ImageBackground style={{ flex: 1 }}
-        source={require('../../assets/back3.jpg')}>
+        source={{uri: 'https://firebasestorage.googleapis.com/v0/b/myfirstproject-3cbe1.appspot.com/o/user_image%2Fback3.jpg?alt=media&token=c12b0c26-1f7f-4f36-b5a1-e4e9afa8e105'}}>
                    
         <View style={{flex:1, alignItems:'center'}}>
           <Text style={{fontWeight: 'bold', textAlign: 'center', fontSize: 32}}>
             Enter a Word to Join!</Text>
-          
-          
 
             <CodeInput
               ref="codeInputRef2"

@@ -68,7 +68,7 @@ class Profile extends React.Component{
                         key={1}
                         title={"Phone"}
                         textInput={true}
-                        rightTitle={this.state.Phone}
+                        rightTitle={this.state.Phone.toString()}
                         //textInputValue={this.state.Phone}
                         hideChevron
                       />

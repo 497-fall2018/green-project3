@@ -59,15 +59,23 @@ class EnterCode extends React.Component{
 
     render(){
       return(
-        <View style={{flex:1, alignItems:'center', justifyContent:'center',marginTop:50}}>
-          <Text style={{fontWeight: 'bold', marginTop:50, textAlign: 'center', fontSize: 32}}>
-            Enter A Word to Join A Group!</Text>
+        <View style={{flex:1, alignItems:'center'}}>
+          <Text style={{fontWeight: 'bold', textAlign: 'center', fontSize: 32}}>
+            Enter a Word to Join!</Text>
           
           
-             <TextInput
-              style={{width:250,height:25, marginVertical:10, padding:5,borderWidth:1, borderColor:'grey',borderRadius:3}}
-              onChangeText={(text) => this.updateCode(text)}
-              value={this.state.text}/>
+
+            <CodeInput
+              ref="codeInputRef2"
+              activeColor='rgba(255, 255, 255, 1)'
+              inactiveColor='rgba(255, 255, 255, 1.3)'
+              codeLength={4}
+              size={60}
+              autoFocus={false}
+              containerStyle={{ marginTop: 100 }}
+              codeInputStyle={{ fontWeight: '800' }}
+              onFulfill={(code) => this.updateCode(code)}
+            />
         </View>
       )
     }

@@ -149,77 +149,13 @@ class Home extends React.Component{
       setTimeout(function(){that.navtoGroup()}, 500);
     }
 
-    // joinGroup(groupcode){
-    //   // this should query the db's groups table to find the matching dictionary object
-    //   // it will return the list of user id's associated with the specific code
-    //   // var userids = []
-    //   // for code in groupcodes:
-    //   //   if code == groupcode:
-    //   //     userids += dict[code] (this is the list of userids)
-    //   // return userids;
-    //
-    //   // var userids = ['testuser1','testuser2','testuser3','testuser4']
-    //   var that = this;
-    //
-    //   firebase.database().ref('Groups/'+groupcode).once('value')
-    //   .then((snapshot) => {
-    //     console.warn(snapshot.val())
-    //     const exists = (snapshot.val() != null);
-    //     if (exists)  {
-    //       this.setState({
-    //         joinGroup:true,
-    //         groupcode:groupcode,
-    //         groupusers:snapshot.val()
-    //     });
-    //     console.warn(this.state.groupusers)
-    //     }
-    //   })
-    //   setTimeout(function(){that.navtoGroup()}, 500);
-    // }
-
-    getUser(userid){
-      //this should query the users table of the db to return the stored information
-      // given a certain userid
-      // var userobj={
-      //       id:{userid},
-      //       name:'',
-      //       email:'',
-      //       phone:'',
-      //       address:'',
-      //       facebooklink:'',
-      //       linkedinlink:''
-      //      }
-      // for user in users:
-      //    if user.id == userid:
-      //      userobj = user
-      var userobj = {
-            id:userid,
-            name:'Test User',
-            email:'test@user.com',
-            phone:'555-555-1234',
-            address:'123 Test Ave, Evanston IL 60201',
-            facebooklink:'https://www.facebook.com/ryanmchenry2',
-            linkedinlink:'https://www.linkedin.com/in/ryanmchenry2'
-      }
-
-      firebase.database().ref('Users/'+userid).once('value')
-      .then((snapshot) => {
-        const exists = (snapshot.val() != null);
-        if (exists)  {
-          userobj = snapshot.val()
-        console.warn(userobj)
-        }
-      })
-      return userobj
-    }
-
-    
+ 
     navtoGroup(){
       this.props.navigation.navigate('Group',{ groupcode: this.state.groupcode })
     }
 
     navtoEnterCode(){
-      this.props.navigation.navigate('EnterCode')
+      this.props.navigation.navigate('EnterCode',{ userId: this.state.userId })
     }
 
     render() {

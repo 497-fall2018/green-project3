@@ -12,6 +12,12 @@ class EnterCode extends React.Component{
         }
     }
 
+    componentDidMount(){
+      const userId = this.props.navigation.getParam('userId', 'failed');
+      console.log("userId:", userId);
+      this.setState({userId: userId})
+    }
+
     updateCode(text){
       var that = this
       this.setState({code:text.toLowerCase()})
@@ -24,19 +30,29 @@ class EnterCode extends React.Component{
     }
 
     joinGroup(groupcode){
+      
       var that = this;
-
+      //firebase.database().ref('Groups/' + groupcode).set([that.state.userId]);
       firebase.database().ref('Groups/'+groupcode).once('value')
       .then((snapshot) => {
         const exists = (snapshot.val() != null);
         if (exists)  {
+          userList = snapshot.val();
+          console.log("userList:",userList);
+          userList.push(that.state.userId);
+          newUserList = Array.from(new Set(userList));
+          console.log("newUserList::",newUserList);
+          firebase.database().ref('Groups/' + groupcode).set(userList);
           this.setState({
             joinGroup:true,
             groupcode:groupcode,
             groupusers:snapshot.val()
           });
+          
+
         }
       })
+
       setTimeout(function(){that.props.navigation.navigate('Group',{groupcode:that.state.code, groupusers:that.state.groupusers})}, 500);
     }
 

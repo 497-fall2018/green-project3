@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, TextInput } from 'react-native';
 import { Card, ListItem, Button, Icon, Input, Text } from 'react-native-elements';
+import CodeInput from 'react-native-confirmation-code-input';
 import firebase from '../../config/config.js';
 
 class EnterCode extends React.Component{
@@ -42,7 +43,7 @@ class EnterCode extends React.Component{
           userList.push(that.state.userId);
           newUserList = Array.from(new Set(userList));
           console.log("newUserList::",newUserList);
-          firebase.database().ref('Groups/' + groupcode).update(userList);
+          firebase.database().ref('Groups/' + groupcode).set(newUserList);
           this.setState({
             joinGroup:true,
             groupcode:groupcode,
@@ -58,13 +59,15 @@ class EnterCode extends React.Component{
 
     render(){
       return(
-        <View style={{backgroundColor: 'purple'}}>
-          <Text style={{fontWeight: 'bold', marginTop:200, textAlign: 'center', fontSize: 32}}>
-            Enter A Word to join a group</Text>
-          <TextInput
+        <View style={{flex:1, alignItems:'center', justifyContent:'center',marginTop:50}}>
+          <Text style={{fontWeight: 'bold', marginTop:50, textAlign: 'center', fontSize: 32}}>
+            Enter A Word to Join A Group!</Text>
+          
+          
+             <TextInput
+              style={{width:250,height:25, marginVertical:10, padding:5,borderWidth:1, borderColor:'grey',borderRadius:3}}
               onChangeText={(text) => this.updateCode(text)}
-              value={this.state.text}
-            />
+              value={this.state.text}/>
         </View>
       )
     }

@@ -158,6 +158,24 @@ class Home extends React.Component {
     this.props.navigation.navigate('EnterCode', { userId: this.state.userId })
   }
 
+  // Email: Email,
+  // Phone: Phone,
+  // UserName: UserName,
+  // LinkedIn: LinkedIn,
+  // Facebook: Facebook,
+  // Image: Image1
+  navtoProfile() {
+    this.props.navigation.navigate('Profile',
+    { userId: this.state.userId, 
+      Email:this.state.Email,
+      UserName:this.state.UserName,
+      LinkedIn:this.state.LinkedIn,
+      Facebook:this.state.Facebook,
+      Image:this.state.Image,
+      Phone:this.state.Phone
+     })
+  }
+
   render() {
     return (
 
@@ -168,6 +186,12 @@ class Home extends React.Component {
           <View>
 
             <Text style={styles.welcomeText}>Welcome, {this.state.UserName}.</Text>
+            <TouchableOpacity
+              style={{ justifyContent:'center',marginBottom:15,backgroundColor:'blue', height:40, paddingVertical:10,paddingHorizontal:20,borderRadius:5}}
+              onPress={(() => this.navtoProfile())}>
+                <Text style={{color:'white'}}>Profile</Text>
+            </TouchableOpacity>
+
             <CheckBox style={styles.checkbox}
               title='Phone Number'
               checked={this.state.phoneNumberCheck}

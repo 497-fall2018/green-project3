@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TextInput,ImageBackground  } from 'react-native';
 import { Card, ListItem, Button, Icon, Input, Text } from 'react-native-elements';
-import CodeInput from 'react-native-confirmation-code-input';
+import CodeInput from 'react-native-code-input';
 import firebase from '../../config/config.js';
 
 class EnterCode extends React.Component{
@@ -60,29 +60,27 @@ class EnterCode extends React.Component{
     render(){
       return(
    
-        <ImageBackground style={{ flex: 1 }}
-        source={require('../../assets/back3.jpg')}>
+        
                    
         <View style={{flex:1, alignItems:'center'}}>
           <Text style={{fontWeight: 'bold', textAlign: 'center', fontSize: 32}}>
             Enter a Word to Join!</Text>
           
           
-
             <CodeInput
-              ref="codeInputRef2"
-              activeColor='rgba(255, 255, 255, 1)'
-              inactiveColor='rgba(255, 255, 255, 1.3)'
+              keyboardType="default"
+              activeColor='rgba(0, 0, 255, 1)'
+              inactiveColor='rgba(0, 0, 0, 1.3)'
               codeLength={4}
               size={60}
               autoFocus={false}
-              containerStyle={{ marginTop: 100 }}
-              codeInputStyle={{ fontWeight: '800' }}
+      containerStyle={{ marginTop: 30 }}
+      codeInputStyle={{ borderWidth: 1.5 }}
               onFulfill={(code) => this.updateCode(code)}
             />
         </View>
         
-        </ImageBackground>
+       
       )
     }
 

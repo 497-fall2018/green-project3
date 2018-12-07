@@ -87,6 +87,7 @@ class Group extends React.Component {
 
   getUsers(groupusers) {
     var that = this;
+    this.setState({userInfo: [] });
     for (i in groupusers) {
       firebase.database().ref('Users/' + groupusers[i]).once('value')
         .then((snapshot) => {

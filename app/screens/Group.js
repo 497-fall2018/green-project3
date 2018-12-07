@@ -24,7 +24,7 @@ class Group extends React.Component {
     }
 
   }
-  componentWillMount() {
+  componentDidMount() {
     this.getGroupInfo();
   }
 

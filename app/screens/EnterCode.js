@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput } from 'react-native';
+import { View, TextInput,ImageBackground  } from 'react-native';
 import { Card, ListItem, Button, Icon, Input, Text } from 'react-native-elements';
 import CodeInput from 'react-native-confirmation-code-input';
 import firebase from '../../config/config.js';
@@ -59,16 +59,23 @@ class EnterCode extends React.Component{
 
     render(){
       return(
-        <View style={{flex:1, alignItems:'center', justifyContent:'center',marginTop:50}}>
-          <Text style={{fontWeight: 'bold', marginTop:50, textAlign: 'center', fontSize: 32}}>
-            Enter A Word to Join A Group!</Text>
+   
+        <ImageBackground style={{ flex: 1 }}
+        source={require('../../assets/back3.jpg')}>
+
+
+        <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
           
-          
-             <TextInput
-              style={{width:250,height:25, marginVertical:10, padding:5,borderWidth:1, borderColor:'grey',borderRadius:3}}
+          <TextInput
+              style={{ marginTop:30,width:250,height:25, marginVertical:10, padding:5,borderWidth:1, borderColor:'grey',borderRadius:3}}
               onChangeText={(text) => this.updateCode(text)}
               value={this.state.text}/>
+          
+          <Text style={{fontWeight: 'bold', marginTop:50, textAlign: 'center', fontSize: 32}}>
+            Enter A Word to Join A Group!</Text>     
         </View>
+        
+        </ImageBackground>
       )
     }
 

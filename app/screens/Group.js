@@ -6,12 +6,14 @@ import TimerCountdown from 'react-native-timer-countdown';
 import firebase from '../../config/config.js';
 import { Permissions, Contacts } from 'expo';
 import { PullToRefresh } from 'antd-mobile';
+import { YellowBox } from 'react-native'; 
 
 
 
 class Group extends React.Component{
 
     constructor(props){
+      YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
       super(props);
       this.state={
         input: true,
@@ -22,7 +24,6 @@ class Group extends React.Component{
       }
            
     }
-
     componentWillMount(){
       this.getGroupInfo();
     }

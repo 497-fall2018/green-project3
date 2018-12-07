@@ -42,7 +42,7 @@ class EnterCode extends React.Component{
           userList.push(that.state.userId);
           newUserList = Array.from(new Set(userList));
           console.log("newUserList::",newUserList);
-          firebase.database().ref('Groups/' + groupcode).set(userList);
+          firebase.database().ref('Groups/' + groupcode).update(userList);
           this.setState({
             joinGroup:true,
             groupcode:groupcode,
@@ -58,9 +58,9 @@ class EnterCode extends React.Component{
 
     render(){
       return(
-        <View  style={{backgroundColor: 'purple'}}>
+        <View style={{backgroundColor: 'purple'}}>
           <Text style={{fontWeight: 'bold', marginTop:200, textAlign: 'center', fontSize: 32}}>
-            Enter 4-digit Code to search for contacts</Text>
+            Enter A Word to join a group</Text>
           <TextInput
               onChangeText={(text) => this.updateCode(text)}
               value={this.state.text}

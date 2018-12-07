@@ -1,10 +1,11 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity, TextInput, ImageBackground } from 'react-native';
 import { Button } from 'react-native-elements'
 import { CheckBox } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CodeInput from 'react-native-confirmation-code-input';
 import TimerCountdown from 'react-native-timer-countdown';
+import Emoji from 'react-native-emoji';
 import firebase from '../../config/config.js';
 import UserAuth from '../components/auth.js'
 
@@ -112,7 +113,6 @@ class Home extends React.Component {
   }
 
   setValue(Email, Phone, UserName, LinkedIn, Facebook, Image1) {
-    console.log('hhhhhhhhhhhhhh')
     this.setState({
       Email: Email,
       Phone: Phone,
@@ -166,7 +166,7 @@ class Home extends React.Component {
   // Image: Image1
   navtoProfile() {
     this.props.navigation.navigate('Profile',
-    { userId: this.state.userId, 
+    { userId: this.state.userId,
       Email:this.state.Email,
       UserName:this.state.UserName,
       LinkedIn:this.state.LinkedIn,
@@ -184,14 +184,19 @@ class Home extends React.Component {
       <View style={styles.container}>
         {this.state.loggedin == true ? (
           <View>
+          <View style={{alignItems:'flex-end'}}>
+          <TouchableOpacity
+style={styles.profileButton}
+            onPress={(() => this.navtoProfile())}>
+            <Emoji name="busts_in_silhouette" style={{fontSize:33}} />
+                        </TouchableOpacity>
+                        </View>
 
-            <Text style={styles.welcomeText}>Welcome, {this.state.UserName}.</Text>
-            <TouchableOpacity
-              style={{ justifyContent:'center',marginBottom:15,backgroundColor:'blue', height:40, paddingVertical:10,paddingHorizontal:20,borderRadius:5}}
-              onPress={(() => this.navtoProfile())}>
-                <Text style={{color:'white'}}>Profile</Text>
-            </TouchableOpacity>
+          <Emoji name="wave" style={{fontSize: 33, marginTop:20}} />
+            <Text style={styles.welcomeText}>Welcome back, {this.state.UserName}.</Text>
 
+
+            <View style={styles.checkContainer}>
             <CheckBox style={styles.checkbox}
               title='Phone Number'
               checked={this.state.phoneNumberCheck}
@@ -209,22 +214,24 @@ class Home extends React.Component {
               checked={this.state.facebookCheck}
               onPress={() => this.setState({ facebookCheck: !this.state.facebookCheck })}
             />
+            <View style={styles.buttonRow}>
 
-            <TouchableOpacity style={styles.customButton}
-              title="Start Group"
+            <TouchableOpacity style={styles.customButtonSmall}
               loading
               loadingProps={{ size: "large", color: "rgba(111, 202, 186, 1)" }}
               onPress={() => this.createGroup(this.state.userId)}
             >
-              <Text style={styles.customButtonText}>START GROUP</Text>
+              <Text style={styles.customButtonText}>START</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={styles.customButton}
+              style={styles.customButtonSmall}
               loadingProps={{ size: "large", color: "rgba(111, 202, 186, 1)" }}
               onPress={() => this.navtoEnterCode()}>
-              <Text style={styles.customButtonText}> JOIN GROUP </Text>
+              <Text style={styles.customButtonText}> JOIN </Text>
             </TouchableOpacity>
+            </View>
+            </View>
 
             <TouchableOpacity onPress={() => this.userLogout()}
               style={styles.customButton}
@@ -246,9 +253,10 @@ class Home extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
-    width: '80%',
-    marginLeft: '10%'
+    width: '100%',
+    height:'100%',
+    padding:'10%',
+    backgroundColor:'#1FA2FF'
   },
   checkbox: {
     margin: 100,
@@ -265,12 +273,30 @@ const styles = StyleSheet.create({
     marginTop: 30,
     paddingHorizontal: 50,
     paddingVertical: 15,
-    backgroundColor: 'purple',
+    borderColor:'white',
+    borderWidth:2,
     borderRadius: 100,
     shadowOpacity: 0.15,
     shadowRadius: 24,
     shadowColor: 'black',
     shadowOffset: { height: 0, width: 0 },
+  },
+  customButtonSmall: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom: 15,
+    paddingHorizontal: 30,
+    marginTop:12,
+    paddingVertical: 10,
+    borderColor:'#1FA2FF',
+    backgroundColor: '#1FA2FF',
+    borderWidth:2,
+    borderRadius: 100,
+  },
+  customButtonSmallText: {
+    color: '#1FA2FF',
+    fontWeight: '700',
+    letterSpacing: 1,
   },
   customButtonText: {
     color: 'white',
@@ -280,10 +306,39 @@ const styles = StyleSheet.create({
   welcomeText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'purple',
-    marginTop: 30,
+    color: 'white',
+    marginTop: 10,
     marginBottom: 25
+  },
+  profileButton:{
+    marginRight: 0,
+    marginTop: 45,
+    backgroundColor:'white',
+    borderRadius:100,
+    padding:10,
+    shadowOpacity: 0.18,
+    shadowRadius: 24,
+    shadowColor: 'black',
+    shadowOffset: { height: 5, width: 5 },
+  },
+  checkContainer:{
+    backgroundColor:'white',
+    borderRadius:4,
+    padding:10,
+    paddingTop:30,
+    paddingBottom:10,
+    shadowOpacity: 0.23,
+    shadowRadius: 24,
+    shadowColor: 'black',
+    shadowOffset: { height: 10, width: 10 },
+  },
+  buttonRow:{
+    alignItems: 'flex-start',
+    justifyContent:'flex-start',
+flexDirection:'row',
   }
+
+
 })
 
 export default Home;

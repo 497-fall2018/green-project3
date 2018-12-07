@@ -38,7 +38,7 @@ class Profile extends React.Component{
     render()
     {
         return(
-            <View>
+            <View style={styles.container}>
               {/* <Text>Image:{this.state.Image}</Text> */}
                     <Card
                       containerStyle={{marginTop: 50}}
@@ -57,13 +57,13 @@ class Profile extends React.Component{
                         />
                       <ListItem
                         key={0}
-                        title={"userName"}
+                        title={"Your Name"}
                         textInput={true}
                         rightTitle={this.state.userName}
                         //textInputValue={this.state.userName}
                         hideChevron
                       />
-                      
+
                       <ListItem
                         key={1}
                         title={"Phone"}
@@ -101,5 +101,14 @@ class Profile extends React.Component{
     }
 
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height:'100%',
+    padding:'10%',
+    backgroundColor:'#1FA2FF'
+  },
+})
 
 export default Profile;

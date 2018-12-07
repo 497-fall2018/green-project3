@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, Alert, View, Image, TouchableOpacity, TextInput } from 'react-native';
+import { FlatList, StyleSheet, Text, Alert, View, Image, TouchableOpacity, TextInput, ImageBackground } from 'react-native';
 import { CheckBox, Badge, Button, ListItem, Icon } from 'react-native-elements'
 import CodeInput from 'react-native-confirmation-code-input';
 import TimerCountdown from 'react-native-timer-countdown';
@@ -121,7 +121,7 @@ class Group extends React.Component {
     }
     const contactId = await Contacts.addContactAsync(contact);
     Alert.alert(
-      'Your have successfully added',
+      'You have successfully added',
       item['UserName'],
       'to your contacts!'
     );
@@ -130,14 +130,16 @@ class Group extends React.Component {
   render() {
 
     return (
+
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => this.refresh()}>
-          <Text style = {{color:'red',fontSize:22,textAlign:'right'}}>Refresh</Text>
+      <View style={styles.codeContainer}>
+      <Text style={styles.codeBefore}>YOUR CODE IS: </Text>
+      <Text style={styles.code}>{this.state.code} </Text>
+      </View>
+        <TouchableOpacity style={styles.customButton} onPress={() => this.refresh()}>
+          <Text style = {styles.customButtonText}>REFRESH</Text>
         </TouchableOpacity>
-        <Badge
-          value={this.state.code}
-          textStyle={{ color: 'black' }}
-          wrapperStyle={{ backgroundColor: 'black' }} />
+
 
         {this.state.ready == true ? (
           <FlatList
@@ -147,7 +149,7 @@ class Group extends React.Component {
             renderItem={this.renderItem} />
         ) : (
             <View>
-              <Text>Waitting......</Text>
+              <Text>Waiting......</Text>
             </View>
           )}
 
@@ -162,7 +164,14 @@ class Group extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 23
+    backgroundColor: '#1FA2FF',
+    width:'100%',
+    height:'100%',
+    padding:'10%',
+  },
+  codeContainer:{
+    alignItems:'center',
+    marginTop:40
   },
   checkbox: {
     margin: 100,
@@ -170,6 +179,39 @@ const styles = StyleSheet.create({
     borderColor: '#7a42f4',
     borderWidth: 1,
     paddingTop: 100
+  },
+  customButton: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 15,
+    marginBottom: 30,
+    paddingHorizontal: 50,
+    paddingVertical: 15,
+    borderColor:'white',
+    borderWidth:2,
+    borderRadius: 100,
+    shadowOpacity: 0.15,
+    shadowRadius: 24,
+    shadowColor: 'black',
+    shadowOffset: { height: 0, width: 0 },
+  },
+  customButtonText: {
+    color: 'white',
+    fontWeight: '700',
+    letterSpacing: 1,
+  },
+  code: {
+    textTransform: 'uppercase',
+    fontWeight: '700',
+  textAlign:'center',
+  fontSize:60,
+  color:'white'
+},
+  codeBefore :{
+    marginTop:15,
+    fontSize:20,
+    textAlign:'center',
+    color:'white'
   }
 })
 

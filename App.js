@@ -9,11 +9,22 @@ import Group from './app/screens/Group.js';
 import EnterCode from './app/screens/EnterCode.js';
 
 const Nav = createStackNavigator({
-  Home:{screen:HomeScreen},
-  Group:{ screen: Group },
-  Search:{ screen: Search },
-  Profile:{ screen: Profile },
-  EnterCode:{ screen: EnterCode}
+  Home:{screen:HomeScreen,
+        navigationOptions: () => ({
+      headerTransparent: `true`,
+    }),},
+  Group:{ screen: Group, navigationOptions: () => ({
+headerTransparent: `true`,
+}), },
+  Search:{ screen: Search, navigationOptions: () => ({
+headerTransparent: `true`,
+}),},
+  Profile:{ screen: Profile, navigationOptions: () => ({
+headerTransparent: `true`,
+}), },
+  EnterCode:{ screen: EnterCode, navigationOptions: () => ({
+headerTransparent: `true`,
+}),}
 });
 
 export default createAppContainer(Nav);

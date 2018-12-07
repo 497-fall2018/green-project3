@@ -1,6 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, Button, TextInput, KeyboardAvoidingView, StyleSheet, Text, View,Image} from 'react-native'
 import firebase from '../../config/config.js';
+import Emoji from 'react-native-emoji';
 
 
 class userAuth extends React.Component{
@@ -36,50 +37,66 @@ class userAuth extends React.Component{
 
     render(){
         return(
-            <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                <Text>Your are not logged in</Text>
-                <Text>{this.props.message}</Text>
-                { this.state.authStep == 0 ? (
-                    <View style = {{marginVertical: 20,flexDirection: 'row'}}>
-                        <TouchableOpacity onPress={() => this.setState({ authStep:1 })} >
-                            <Text style = {{fontWeight:'bold',color:'green'}}>Login</Text>
-                         </TouchableOpacity>
-                    </View>
-                ) : (
-                    <View style={{marginVertical:20}}>
-                        <Text style={{fontWeight:'bold',marginBottom:20 }}>NameTag Login</Text>
-                        <Text style={{color:'black'}}>Email Address: </Text>
+            <View>
+
+                      <Text style={{fontSize:36, color:'white', fontWeight:'bold', marginVertical:40}}>
+                      <Emoji name="bookmark"/> nametag </Text>
+                      <View style={{backgroundColor:'white',  padding:'10%', borderRadius:5  ,  shadowOpacity: 0.35,
+                          shadowRadius: 24,
+                          shadowColor: 'black',
+                          shadowOffset: { height: 5, width: 5 },}}>
+                          <Text style={{color: '#1FA2FF', fontWeight:'700'}}> Email Address</Text>
                         <TextInput
                         editable={true}
                         keyboardType={'email-address'}
+                        autoCapitalize = 'none'
                         placeholder={'enter your email address'}
-                        onChangeText={(text) => this.setState({email:text})}
+                        onChangeText={(texts) => this.setState({email:texts})}
                         value={this.state.email}
-                        style={{width:250,height:25, marginVertical:10, padding:5,borderWidth:1, borderColor:'grey',borderRadius:3}}
+                        style={{width:250,height:45, marginVertical:10, padding:10,borderWidth:2, borderColor:'white',borderRadius:3,color:'black'}}
                         />
+                        <Text style={{color: '#1FA2FF', fontWeight:'700', marginTop:15}}> Password</Text>
 
-                        <Text style={{fontWeight:'bold',marginBottom:20 }}>NameTag Login</Text>
-                        <Text>Password: </Text>
                         <TextInput
                         editable={true}
                         secureTextEntry={true}
+                        autoCapitalize = 'none'
                         placeholder={'enter your password'}
-                        onChangeText={(text) => this.setState({pass:text})}
+                        onChangeText={(texts) => this.setState({pass:texts})}
                         value={this.state.pass}
-                        style={{width:250,height:25, marginVertical:10, padding:5,borderWidth:1, borderColor:'grey',borderRadius:3}}
+                        style={{width:250,height:45, marginVertical:10, padding:10,borderWidth:2, borderColor:'white',borderRadius:3, color:'black'}}
                         />
-
                         <TouchableOpacity
-                            style={{backgroundColor:'green', height:40, paddingVertical:10,paddingHorizontal:20,borderRadius:5}}
-                            onPress={(() => this.login())}
-                        >
-                            <Text style={{color:'white'}}>Login</Text>
+                            style={styles.customButton}
+                            onPress={(() => this.login())}>
+                            <Text style={styles.customButtonText}>LOG IN</Text>
                         </TouchableOpacity>
-                    </View>
-                )}
+                        </View>
             </View>
         )
     }
+
 }
+
+const styles = StyleSheet.create({
+  customButton: {
+    alignSelf: 'flex-start',
+    marginTop: 30,
+    paddingHorizontal: 50,
+    paddingVertical: 15,
+    borderColor:'#1FA2FF',
+    borderWidth:2,
+    borderRadius: 100,
+    shadowOpacity: 0.15,
+    shadowRadius: 24,
+    shadowColor: 'black',
+    shadowOffset: { height: 0, width: 0 },
+  },
+  customButtonText: {
+    color: '#1FA2FF',
+    fontWeight: '700',
+    fontSize:16
+  },
+})
 
 export default userAuth;
